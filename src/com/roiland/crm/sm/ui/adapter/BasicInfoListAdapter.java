@@ -281,7 +281,7 @@ public class BasicInfoListAdapter extends BaseCacheListAdapter<BasicInfoListAdap
                 }else if(item.key.equals(context.getString(R.string.postcode))){
                     viewItem.setEditTextFilter(context,item.key,7);
                 }else if(item.key.equals(context.getString(R.string.custfeedback))){
-                    viewItem.setEditTextFilter(context,item.key,121);
+                    viewItem.setEditTextFilter(context,item.key,120);
                 }else if(item.key.equals(context.getString(R.string.preorderCount))){
                     viewItem.setEditTextFilter(context,item.key,3);
                 }else if(item.key.equals(context.getString(R.string.qq))){

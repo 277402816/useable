@@ -43,6 +43,7 @@ public class ScOppoInfoActivity extends BaseInfoActivity implements BottomEventL
     private boolean                          bshow              = true;
     private boolean                          bSelectProjectInfo = false;
     private boolean                          isOldCust          = false;                               //老客户信息带入
+    private boolean 						 oldCust            = false;
     private final static String              tag                = Log
                                                                     .getTag(ScOppoInfoActivity.class);
 
@@ -75,7 +76,9 @@ public class ScOppoInfoActivity extends BaseInfoActivity implements BottomEventL
         if(requestCode == 1 && resultCode == RESULT_OK){
             customer = data.getParcelableExtra("customer");
             isOldCust = data.getBooleanExtra("isOldCust", false);
+            oldCust = data.getBooleanExtra("oldCust", false);
             mainFragment.setOldCust(isOldCust);
+            mainFragment.setOldeCustCollect(oldCust);
             mainFragment.displayCustomer(customer);
         }
     }

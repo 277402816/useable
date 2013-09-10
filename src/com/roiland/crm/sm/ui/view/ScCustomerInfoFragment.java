@@ -244,8 +244,16 @@ public class ScCustomerInfoFragment extends SherlockFragment {
             if(customer != null && StringUtils.isEmpty(customer.getCity())){
                 
             }
-            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.city), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"市县1", "市县2", "市县3"}, (customer != null ? customer.getCity() : null),false));
-            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.district), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"行政区划1", "行政区划2", "行政区划3"}, (customer != null ? customer.getDistrict() : null),false));
+            if(customer != null && StringUtils.isEmpty(customer.getProvince())){
+            	customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.city), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"市县1", "市县2", "市县3"}, (customer != null ? customer.getCity() : null),false,false)); 
+            }else{
+            	customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.city), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"市县1", "市县2", "市县3"}, (customer != null ? customer.getCity() : null),false));
+            }
+            if(customer != null && StringUtils.isEmpty(customer.getCity())){
+            	customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.district), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"行政区划1", "行政区划2", "行政区划3"}, (customer != null ? customer.getDistrict() : null),false,false));
+            }else{
+            	customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.district), BaseInfoRowViewItem.SELECTION_TYPE, new String[] {"行政区划1", "行政区划2", "行政区划3"}, (customer != null ? customer.getDistrict() : null),false));
+            }
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.qq), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (customer != null ? customer.getQq() : null),false,InputType.TYPE_CLASS_NUMBER));
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.postcode), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (customer != null ? customer.getPostcode() : null),false));
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.email), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (customer != null ? customer.getEmail() : null),false));
@@ -429,6 +437,9 @@ public class ScCustomerInfoFragment extends SherlockFragment {
         	city = "";
         	district = "";
         	addAddress(province, city, district);
+        	item = (BaseInfoRowViewItem)customerInfoList.findViewWithTag(getString(R.string.city));
+        	item.btnDown.setEnabled(true);
+            item.txtValue.setEnabled(true);
             for(int i=1;i<addressInfoList.length;i++){
                 item = (BaseInfoRowViewItem)customerInfoList.findViewWithTag(addressInfoList[i]);
                 item.setValue("");
@@ -451,6 +462,9 @@ public class ScCustomerInfoFragment extends SherlockFragment {
         	city = value;
         	district = "";
         	addAddress(province, city, district);
+        	item = (BaseInfoRowViewItem)customerInfoList.findViewWithTag(getString(R.string.district));
+        	item.btnDown.setEnabled(true);
+            item.txtValue.setEnabled(true);
             item = (BaseInfoRowViewItem)customerInfoList.findViewWithTag(getString(R.string.district));
             item.setValue("");
             item.setParentKey2(pairKey);

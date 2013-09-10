@@ -514,7 +514,7 @@ public class BaseInfoRowViewItem extends RelativeLayout {
 	 * @param length 长度
 	 */
 	public void setEditTextFilter(Context context,String key,int length){
-	    InputFilter[] filters = { new InputFilterUtil(context,key,length) }; 
+	    InputFilter[] filters = {new InputFilterUtil(context,key,length)}; 
         edtValue.setFilters(filters);
 	}
         

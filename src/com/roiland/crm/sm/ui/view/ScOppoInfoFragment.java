@@ -104,6 +104,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
     private boolean                         isGiveUpChecked   = false;
     private boolean                         isSuccess         = true;                              //编辑添加成功标志
     private boolean                         isOldCust         = false;                             //老客户信息带入
+    private boolean                         oldCustCollect    = false;							   //老客户选择带入
     private boolean                         newToggleBtnClick = false;                             // true 显示新建跟踪计划
     private boolean                         isSubmitNewCar    = false;                             //ture 递交新车
     private boolean                         isGetBirthFromId  = false;                             //true 生日根据身份证联动
@@ -397,7 +398,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                 customerInfo.add(idtypeInfo = new BasicInfoListAdapter.Info(getString(R.string.idType), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getIdType() : null),false));
                 customerInfo.add(idnumberInfo = new BasicInfoListAdapter.Info(getString(R.string.idNumber), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getIdNumber() : null),false));
             }
-            if(addFlag){
+            if(addFlag && !oldCustCollect){
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.province), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getProvince() : null),false));
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.city), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCity() : null),false,false));  
             }else{
@@ -419,7 +420,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                 }
                 }
             }
-            if(addFlag || StringUtils.isEmpty(project.getCustomer().getCity())){
+            if(addFlag && !oldCustCollect || StringUtils.isEmpty(project.getCustomer().getCity())){
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.district), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getDistrict() : null),false,false));
             }else{
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.district), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getDistrict() : null),false));
@@ -1714,6 +1715,10 @@ public class ScOppoInfoFragment extends SherlockFragment {
 
     public void setOldCust(boolean isOldCust) {
         this.isOldCust = isOldCust;
+    }
+    
+    public void setOldeCustCollect(boolean oldCust){
+    	this.oldCustCollect = oldCust;
     }
 
     /**

@@ -220,18 +220,17 @@ public class ProjectAPIImpl extends AbstractBaseAPI implements ProjectAPI {
                 customerEntity.setEmail(parsingString(customerEntityresult.get("email")));
                 customerEntity.setConvContactTime(parsingString(customerEntityresult
                     .get("convContactTime")));
-                //              customerEntity.setConvContactTimeCode((customerEntityresult
-                //                              .get("convContactTimeCode")));
+                customerEntity.setConvContactTimeCode(parsingString((customerEntityresult.get("convContactTimeCode"))));
                 customerEntity.setExpectContactWayCode(parsingString(customerEntityresult
                     .get("expectContactWayCode")));
                 customerEntity.setExpectContactWay((parsingString(customerEntityresult
                     .get("expectContactWay"))));
                 customerEntity.setFax(parsingString(customerEntityresult.get("fax")));
-                //              customerEntity.setExistingCarCode(String
-                //                      .valueOf(parsingString(customerEntityresult
-                //                              .get("existingCarCode"))));
                 customerEntity.setExistingCarBrand(parsingString(customerEntityresult
                     .get("existingCarBrand")));
+                customerEntity.setExistingCarCode(String
+                        .valueOf(parsingString(customerEntityresult
+                                .get("existingCarCode"))));
                 customerEntity.setIndustryCode(parsingString(customerEntityresult
                     .get("industryCode")));
                 customerEntity.setPositionCode(parsingString(customerEntityresult
@@ -268,11 +267,11 @@ public class ProjectAPIImpl extends AbstractBaseAPI implements ProjectAPI {
                     .get("registeredCapitalCode")));
                 customerEntity.setRegisteredCapital(parsingString(customerEntityresult
                     .get("registeredCapital")));
-                //              customerEntity.setCompeCarModelCode(String
-                //                      .valueOf(parsingString(customerEntityresult
-                //                              .get("compeCarModelCode"))));
+                customerEntity.setCompeCarModelCode(parsingString(customerEntityresult
+                    .get("compeCarModelCode")));
                 customerEntity.setCompeCarModel(parsingString(customerEntityresult
                     .get("compeCarModel")));
+                customerEntity.setCompeCarModelCode(parsingString(customerEntityresult.get("compeCarModelCode")));
                 customerEntity.setRebuyStoreCustTag(Boolean
                     .parseBoolean((parsingString(customerEntityresult.get("rebuyStoreCustTag")))));
                 customerEntity.setRebuyOnlineCustTag(Boolean
@@ -368,9 +367,8 @@ public class ProjectAPIImpl extends AbstractBaseAPI implements ProjectAPI {
                     .getBoolean("giveupTag"));
                 purchaseCarIntention.setGiveupReason(parsingString(purchaseCarIntentionresult
                     .get("giveupReason")));
-                //              purchaseCarIntention.setGiveupReasonCode(String
-                //                      .valueOf(parsingString(purchaseCarIntentionresult
-                //                              .get("giveupReasonCode")));
+                purchaseCarIntention.setGiveupReasonCode(parsingString(purchaseCarIntentionresult
+                    .get("giveupReasonCode")));
                 purchaseCarIntention.setInvoiceTitle(parsingString(purchaseCarIntentionresult
                     .get("invoiceTitle")));
                 purchaseCarIntention.setProjectComment(parsingString(purchaseCarIntentionresult

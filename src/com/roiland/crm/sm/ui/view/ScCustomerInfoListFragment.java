@@ -93,6 +93,7 @@ public class ScCustomerInfoListFragment extends SherlockFragment implements OnQu
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("customer", customerList.get(arg2));
                     intent.putExtra("isOldCust", true);
+                    intent.putExtra("oldCust", true);
                     intent.putExtras(bundle);
                     getActivity().setResult(getActivity().RESULT_OK, intent);
                     getActivity().finish();
