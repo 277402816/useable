@@ -22,7 +22,7 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 /**
  * 
  * <pre>
- * 这是基础视图画面，主要定义左边菜单，ActionBar和功能模块片段12334我去饿我去恶趣味。
+ * 这是基础视图画面，主要定义左边菜单，ActionBar和功能模块片段。
  * </pre>
  *
  * @author JKim
