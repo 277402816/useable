@@ -367,7 +367,10 @@ public class ScOppoListFragment extends BaseRefreshListFragment{
                         list.add(projectList.get(0));
                         listAdapter.addSection(getString(R.string.nearest_add), list);
                         projectMap.get(sectionKeyList.get(i)).remove(projectMap.get(sectionKeyList.get(i)).get(0));
-                        listAdapter.addSection(sectionKeyList.get(i), projectMap.get(sectionKeyList.get(i)));
+                        if(projectMap.get(sectionKeyList.get(i)).size() != 0){
+
+                            listAdapter.addSection(sectionKeyList.get(i), projectMap.get(sectionKeyList.get(i)));
+                        }
                     }else{
                         listAdapter.addSection(sectionKeyList.get(i), projectMap.get(sectionKeyList.get(i)));
                     }
