@@ -37,6 +37,7 @@ import com.roiland.crm.sm.ui.widget.BaseInfoRowViewItem;
 import com.roiland.crm.sm.ui.widget.BottomBar;
 import com.roiland.crm.sm.utils.DataVerify;
 import com.roiland.crm.sm.utils.DateFormatUtils;
+import com.roiland.crm.sm.utils.DialogUtils;
 import com.roiland.crm.sm.utils.EventReceiver;
 import com.roiland.crm.sm.utils.Log;
 import com.roiland.crm.sm.utils.StringUtils;
@@ -763,6 +764,7 @@ public class ScFollowPlanFragment extends SherlockFragment{
                             getResources().getString(R.string.executestatus_2))) {
                         new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.alert)
+                            .setCancelable(false) 
                             .setIcon(android.R.drawable.ic_dialog_info)
                             .setMessage(getResources().getString(R.string.prompts_message))
                             .setPositiveButton(getResources().getString(R.string.ok),
@@ -884,7 +886,7 @@ public class ScFollowPlanFragment extends SherlockFragment{
         for (int i = 0; i < tracePlanList.size() - 1; i++) {
             BasicInfoListAdapter.Info info = tracePlanList.get(i);
             errString = DataVerify.infoValidation(info.key, info.value, null, null, null, null,
-                getActivity(), false, false);
+                getActivity(), false, false,false);
             if (!StringUtils.isEmpty(errString)) {
                 break;
             }
@@ -906,7 +908,7 @@ public class ScFollowPlanFragment extends SherlockFragment{
         for (int i = 0; i < tracePlanList.size(); i++) {
             BasicInfoListAdapter.Info info = tracePlanList.get(i);
             errString = DataVerify.infoValidation(info.key.replaceAll(":", ""), info.value, null,
-                null, null, null, getActivity(), false, false);
+                null, null, null, getActivity(), false, false,false);
             if (!StringUtils.isEmpty(errString)) {
                 break;
             }
