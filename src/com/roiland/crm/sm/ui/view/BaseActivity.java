@@ -25,7 +25,7 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
  * 这是基础视图画面，主要定义左边菜单，ActionBar和功能模块片段。
  * </pre>
  *
- * @author JKim
+ * @author JKim6531232131321
  * @version $Id: BaseActivity.java, v 0.1 2013-8-6 上午9:33:35 JKim Exp $
  */
 public class BaseActivity extends SlidingFragmentActivity implements ItemSelectedListener {
