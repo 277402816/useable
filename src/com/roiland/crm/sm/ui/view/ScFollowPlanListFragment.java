@@ -85,7 +85,8 @@ public class ScFollowPlanListFragment extends BaseRefreshListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         //初期化检索
-        defaultSearch();
+//       
+
     }
 
     @Override
@@ -100,6 +101,8 @@ public class ScFollowPlanListFragment extends BaseRefreshListFragment {
 
     public void onResume() {
         super.onResume();
+      //初期化检索
+        defaultSearch();
     }
 
     /**

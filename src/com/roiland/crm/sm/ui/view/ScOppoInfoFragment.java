@@ -371,7 +371,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.collectFrom),BaseInfoRowViewItem.SELECTION_TYPE,null,(project != null && project.getCustomer() != null ? project.getCustomer().getCollectFrom() : null),true));
             }
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custMobile), BaseInfoRowViewItem.MOBILETEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustMobile() : null),false,InputType.TYPE_CLASS_NUMBER));
-            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custOtherPhone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustOtherPhone() : null),false,InputType.TYPE_CLASS_NUMBER));
+            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custOtherPhone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustOtherPhone() : null),false,InputType.TYPE_CLASS_PHONE));
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.comment), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustComment() : null),false));
         } else {
             customerInfo.clear();       
@@ -387,7 +387,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                 customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.collectFrom),BaseInfoRowViewItem.SELECTION_TYPE,null,(project != null && project.getCustomer() != null ? project.getCustomer().getCollectFrom() : null),true));
             }
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custMobile), BaseInfoRowViewItem.MOBILETEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustMobile() : null),false,InputType.TYPE_CLASS_NUMBER));
-            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custOtherPhone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustOtherPhone() : null),false,InputType.TYPE_CLASS_NUMBER));
+            customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.custOtherPhone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getCustOtherPhone() : null),false,InputType.TYPE_CLASS_PHONE));
             customerInfo.add(new BasicInfoListAdapter.Info(getString(R.string.gender), BaseInfoRowViewItem.SELECTION_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getGender() : null),false));
             if(isSubmitNewCar() || isSubmitNewCar){
                 customerInfo.add(birthdayInfo = new BasicInfoListAdapter.Info(getString(R.string.birthday), BaseInfoRowViewItem.DATE_TYPE, null, (project != null && project.getCustomer() != null ? project.getCustomer().getBirthday() : null),true));
@@ -829,7 +829,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
             if(project != null && project.getPurchaseCarIntention() != null && !StringUtils.isEmpty(project.getPurchaseCarIntention().getModel())){
                 BaseInfoRowViewItem item = (BaseInfoRowViewItem)mCarInfo.findViewWithTag(carInfoStrList1[4]);
                 if(item != null)
-                    item.setParentKey(project.getPurchaseCarIntention().getModelCode());
+                    item.setParentKey2(project.getPurchaseCarIntention().getModelCode());
             }
         }
     }
@@ -1489,7 +1489,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                 BasicInfoListAdapter.Info info = customerInfo.get(i);
                 String item = info.key;
                 errString1 = DataVerify.infoValidation(item, info.value, orderId,
-                    orderStatus, strTemp, strTemp2, getActivity(), false, false);
+                    orderStatus, strTemp, strTemp2, getActivity(), false, false, false);
                 if (item.equals(getString(R.string.custOtherPhone))) {
                     if (StringUtils.isEmpty(temp) && StringUtils.isEmpty(tempt)) {
                         errString1 = getString(R.string.dataverify_phonenumber_musthave);
@@ -1519,7 +1519,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                     strTemp2 = infoCaches.value;
                 }
                 errString2 = DataVerify.infoValidation(itemCaches, infoCaches.value, orderId,
-                    orderStatus, strTemp, strTemp2, getActivity(), false, false);
+                    orderStatus, strTemp, strTemp2, getActivity(), false, false,false);
             }
             if (!StringUtils.isEmpty(errString1)) {
                 errString = errString1;
@@ -1552,6 +1552,12 @@ public class ScOppoInfoFragment extends SherlockFragment {
         String strTemp = null;//放弃销售机会
         int count;//循环次数
         boolean isGiveUpChecked = getIsGiveUpChecked();
+        boolean hasProjectActive = false;//用于判断是否有活动订单
+        if(mHasProjectActive != null){
+            hasProjectActive = true;
+        }else{
+            hasProjectActive = false;
+        }
         if(carInfoCaches != null){
             count = carInfoCaches.size();
         }else{
@@ -1570,7 +1576,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                     strTemp = infoCaches.value;
                 }  
                 errString3 = DataVerify.infoValidation(item, valueCache, null, null,
-                    strTemp, null, getActivity(), isGiveUpChecked, false);
+                    strTemp, null, getActivity(), isGiveUpChecked, false,hasProjectActive);
                 if (getString(R.string.orderStatus_finish).equals(errString3)) {
                     //如果签订订单，进行以下校验
                     for (int k = 0; k < carInfoCaches.size(); k++) {
@@ -1593,7 +1599,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
                     value = DateFormatUtils.formatDate(info.value);
                 }  
                 errString1 = DataVerify.infoValidation(item, value, null, null,
-                    strTemp, null, getActivity(), isGiveUpChecked, false);
+                    strTemp, null, getActivity(), isGiveUpChecked, false,hasProjectActive);
                 if (getString(R.string.orderStatus_finish).equals(errString1)) {
                     //如果签订订单，进行以下校验
                         PurchaseCarIntention purchaseCarIntention = getUpdatedPurchaseCar();
@@ -1656,7 +1662,7 @@ public class ScOppoInfoFragment extends SherlockFragment {
             for (int i = 0; i < followPlanInfo.size(); i++) {
             String item = followPlanInfo.get(i).key;
             errString = DataVerify.infoValidation(item, followPlanInfo.get(i).value, null, null,
-                null, null, getActivity(), false, false);
+                null, null, getActivity(), false, false,false);
             if (!StringUtils.isEmpty(errString)) {
                 break;
             }

@@ -775,7 +775,7 @@ public class SmFollowPlanFragment extends SherlockFragment implements DataChange
         String errString = null;
         BasicInfoListAdapter.Info info = tracePlanList.get(9);
         errString = DataVerify.infoValidation(info.key, info.value, null, null, null, null,
-            getActivity(), false, EditData);
+            getActivity(), false, EditData,false);
         if (!StringUtils.isEmpty(errString)) {
             return errString;
         }
@@ -800,7 +800,7 @@ public class SmFollowPlanFragment extends SherlockFragment implements DataChange
 
     public void setProject(Project project) {
         this.project = project;
-    }
+    }   
 
     public Customer getCustomer() {
         return customer;

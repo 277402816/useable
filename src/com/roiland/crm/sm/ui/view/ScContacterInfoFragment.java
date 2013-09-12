@@ -53,6 +53,7 @@ public class ScContacterInfoFragment extends SherlockFragment {
     
     private String prjID = null;
     private String customerId = null;
+    private String comeFrom = null;
     
     
     BasicInfoListAdapter.Info idnumberInfo;
@@ -72,6 +73,7 @@ public class ScContacterInfoFragment extends SherlockFragment {
         contacter = intent.getParcelableExtra("contacter");
         prjID = intent.getStringExtra("prjID");
         customerId = intent.getStringExtra("customerID");
+        comeFrom = intent.getStringExtra("comeFrom");
         
     }
 
@@ -117,12 +119,18 @@ public class ScContacterInfoFragment extends SherlockFragment {
         contacterInfo = new ArrayList<BasicInfoListAdapter.Info>();
         contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.contacter), BaseInfoRowViewItem.SIMPLETEXT_TYPE, null, (contacter != null ? contacter.getContName() : null),true));
         contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.contacter_mobiel), BaseInfoRowViewItem.MOBILETEXT_TYPE, null, (contacter != null ? contacter.getContMobile() : null),false, InputType.TYPE_CLASS_NUMBER));
-        contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.contacter_other_phone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (contacter != null ? contacter.getContOtherPhone() : null),false, InputType.TYPE_CLASS_NUMBER));
-        if (contacter != null && StringUtils.isEmpty(contacter.getProjectID())) {
-            contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.lead_contacter), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, (contacter != null && contacter.getIsPrimContanter() != null && contacter.getIsPrimContanter().equals("true")? String.valueOf(true) : String.valueOf(false)),false));  
-        } else {
-            contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.lead_contacter), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, (contacter != null && contacter.getIsPrimContanter() != null && contacter.getIsPrimContanter().equals("true")? String.valueOf(true) : String.valueOf(false)),false, false));
-        }       
+        contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.contacter_other_phone), BaseInfoRowViewItem.PSTNTEXT_TYPE, null, (contacter != null ? contacter.getContOtherPhone() : null),false, InputType.TYPE_CLASS_PHONE));
+        if("fromCustomer".equals(comeFrom)){
+        	if(contacter != null && "true".equals(contacter.getIsPrimContanter())){
+        		contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.lead_contacter), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, (contacter != null && contacter.getIsPrimContanter() != null && contacter.getIsPrimContanter().equals("true")? String.valueOf(true) : String.valueOf(false)),false,false));
+        	}else{
+        		contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.lead_contacter), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, (contacter != null && contacter.getIsPrimContanter() != null && contacter.getIsPrimContanter().equals("true")? String.valueOf(true) : String.valueOf(false)),false));
+        	}
+        	
+        }else {
+        	contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.lead_contacter), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, (contacter != null && contacter.getIsPrimContanter() != null && contacter.getIsPrimContanter().equals("true")? String.valueOf(true) : String.valueOf(false)),false, false));
+        }
+          
         contacterInfo.add(new BasicInfoListAdapter.Info(getString(R.string.sex), BaseInfoRowViewItem.SELECTION_TYPE
                 , (contacter != null ? contacter.getContGenderCode() : null), (contacter != null ? contacter.getContGender() : null),false));
         contacterInfo.add(birthdayInfo = new BasicInfoListAdapter.Info(getString(R.string.birthday), BaseInfoRowViewItem.DATE_TYPE, null, (contacter != null ? contacter.getContBirthday() : null),false));
@@ -133,10 +141,10 @@ public class ScContacterInfoFragment extends SherlockFragment {
             public void textChanged(String key, String value) {
                 
                 try {
-//                    if(DataVerify.personIdValid(value)){
+                    if(DataVerify.personIdValid(value)){
                         birthdayInfo.setValue(DateFormatUtils.getBirthFromId(value));
                         contacterInfoAdapter.getView(5, null, null);
-//                    }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

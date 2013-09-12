@@ -171,6 +171,7 @@ public class ScContacterListFragment extends BaseListFragment {
                 intent.putExtra("addFlag", true);
                 intent.putExtra("prjID", mProjectID);
                 intent.putExtra("customerID", mCustomerID);
+                intent.putExtra("comeFrom", comeFrom);
                 startActivity(intent);
                 break;
         }

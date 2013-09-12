@@ -752,7 +752,7 @@ public class ScCustomerInfoFragment extends SherlockFragment {
                     }
                 }
                 errString1 = DataVerify.infoValidation(item, info.value, orderId,
-                    orderStatus, strTemp, strTemp2, getActivity(), false, false);
+                    orderStatus, strTemp, strTemp2, getActivity(), false, false,false);
                 if (item.equals(getString(R.string.custOtherPhone))) {
                     if (StringUtils.isEmpty(temp) && StringUtils.isEmpty(tempt)) {
                         errString1 = getString(R.string.dataverify_phonenumber_musthave);
@@ -768,7 +768,7 @@ public class ScCustomerInfoFragment extends SherlockFragment {
                     strTemp2 = infoCaches.value;
                 }
                 errString2 = DataVerify.infoValidation(itemCaches, infoCaches.value, orderId,
-                    orderStatus, strTemp, strTemp2, getActivity(), false, false);
+                    orderStatus, strTemp, strTemp2, getActivity(), false, false,false);
             }
             if (!StringUtils.isEmpty(errString1)) {
                 errString = errString1;

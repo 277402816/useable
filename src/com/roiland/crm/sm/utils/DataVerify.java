@@ -12,14 +12,33 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.roiland.crm.sc.R;
+import com.roiland.crm.sm.core.model.Project;
 
 public class DataVerify {
     static String telePhoneTemp = null;
     static String IDtemp =null;
 
+    /**
+     * 
+     * <pre>
+     * 校验方法
+     * </pre>
+     *
+     * @param item
+     * @param value 值
+     * @param orderId 订单ID
+     * @param orderStatus 订单状态
+     * @param strGiveUp 
+     * @param strGiveUp2 
+     * @param context 上下文
+     * @param isGiveUpChecked
+     * @param editFlag 
+     * @param hasProjectActive 是否有活动订单
+     * @return
+     */
     public static String infoValidation(String item, String value,
             String orderId, String orderStatus, String strGiveUp,
-            String strGiveUp2,Context context,boolean isGiveUpChecked,boolean editFlag) {
+            String strGiveUp2,Context context,boolean isGiveUpChecked,boolean editFlag, boolean hasProjectActive) {
 
         String errString = null;
         String temp = null;
@@ -107,13 +126,15 @@ public class DataVerify {
         } 
         // 成交日期可以前提一周
         if (item.contains(context.getString(R.string.finish_preorderDate))) {
-            try {
-                if (!compareDate(value, systemDate())) {
-                    temp = value;
-                    return errString = context.getString(R.string.dataverify_preorderDate_1);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(!hasProjectActive){
+                try {
+                    if (!compareDate(value, systemDate())) {
+                        temp = value;
+                        return errString = context.getString(R.string.dataverify_preorderDate_1);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } 
             }
         }
         //底盘号校验位数为17位，不允许有字符和汉字

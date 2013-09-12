@@ -199,7 +199,7 @@ public class ScPurchaseCarInfoFragment extends SherlockFragment {
                     .getPurchaseCarIntention() != null) ? project.getPurchaseCarIntention().getInsideColor() : null),false));
             purchasecarInfo.add(new BasicInfoListAdapter.Info(getString(R.string.insideColorCheck), BaseInfoRowViewItem.BOOLEAN2_TYPE, null, ((project != null && project.getPurchaseCarIntention() != null) ? String
                 .valueOf(project.getPurchaseCarIntention().isInsideColorCheck()) : "false"),false));
-            if(isSubmitNewCar() || hasActivityOrder()){
+            if(StringUtils.isEmpty(project.getPurchaseCarIntention().getModelCode())){
                 purchasecarInfo.add(new BasicInfoListAdapter.Info(getString(R.string.carConfiguration), BaseInfoRowViewItem.SELECTION_TYPE, null, ((project != null && project.getPurchaseCarIntention() != null) ? project
                     .getPurchaseCarIntention().getCarConfiguration() : null),false,false));
             }else{
@@ -1121,7 +1121,7 @@ public class ScPurchaseCarInfoFragment extends SherlockFragment {
         for (int i = 0; i < followPlanInfo.size(); i++) {
             String item = followPlanInfo.get(i).key;
             errString = DataVerify.infoValidation(item, followPlanInfo.get(i).value, null, null,
-                null, null, getActivity(), false, false);
+                null, null, getActivity(), false, false,false);
             if (!StringUtils.isEmpty(errString)) {
                 break;
             }
@@ -1138,6 +1138,7 @@ public class ScPurchaseCarInfoFragment extends SherlockFragment {
         String errString2 = null;
         String strTemp = null;
         boolean isGiveUpChecked = getIsGiveUpChecked();
+        boolean hasProjectActive = hasActivityOrder();
         for (int i = 0; i < purchasecarInfo.size(); i++) {
             String item = purchasecarInfo.get(i).key;
             String value = purchasecarInfo.get(i).value;
@@ -1160,7 +1161,7 @@ public class ScPurchaseCarInfoFragment extends SherlockFragment {
                 }     
             }
             errString = DataVerify.infoValidation(item, value, null, null,
-                strTemp, null, getActivity(), isGiveUpChecked, false);
+                strTemp, null, getActivity(), isGiveUpChecked, false,hasProjectActive);
             if (getString(R.string.orderStatus_finish).equals(errString)) {
                 for (int k = 0; k < purchasecarInfo.size(); k++) {
 
